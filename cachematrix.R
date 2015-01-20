@@ -23,10 +23,10 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## 'cacheSolve()' returns the inverse of a given matrix x. It checks first to see if the
-## inverse of the matrix is already created. If so, it will get the cached results and skips 
-## computing the inverse.  Otherwise, it calculates the inverse of the matrix
-## and sets the value in the cache via the `setinverse` function.  This function assuemes
+## 'cacheSolve()' returns the inverse of a given matrix, x. It checks first to see if the
+## inverse of the matrix was already created. If so, it will get the cached results and skips 
+## computing the inverse.  Otherwise, it calculates the inverse of the matrix using solve()
+## and sets the value in the cache via setinverse() function.  This function assumes that
 ## the matrix is always invertible.
 
 cacheSolve <- function(x, ...) {
@@ -41,3 +41,26 @@ cacheSolve <- function(x, ...) {
     x$setinverse(invm)
     invm
 }
+## Sample usage:
+## > mymatrix <- rbind(c(1, 2), c(-2, -1))      #created a matrix
+## > mymatrix                                   #viewed the matrix
+## [,1] [,2]
+## [1,]    1    2
+## [2,]   -2   -1
+## > mcm <- makeCacheMatrix(mymatrix)           #assigned makeCacheMartix function to mcm
+## > mcm$get()                                  #checked get feature to view matrix
+## [,1] [,2]
+## [1,]    1    2
+## [2,]   -2   -1
+## > cacheSolve(mcm)                            #ran cacheSolve to return the inverse (nothing in cache)                                 
+## [,1]       [,2]
+## [1,] -0.3333333 -0.6666667
+## [2,]  0.6666667  0.3333333
+## > cacheSolve(mcm)
+## getting cached data                          #ran cacheSolve to return the inverse (using cached data)
+## [,1]       [,2]
+## [1,] -0.3333333 -0.6666667
+## [2,]  0.6666667  0.3333333
+## > 
+
+
